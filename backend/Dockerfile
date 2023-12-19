@@ -4,13 +4,13 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install --no-install-recommends -yqq \
     build-essential \
-    libq-dev
+    libpq-dev
 
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 RUN pip install --upgrade pip
 COPY ./requirements /app/requirements
-RUN pip install -r requirements-dev.txt
+RUN pip install -r /app/requirements/dev-requirements.txt
 
 
 FROM python:3.12-slim-bookworm as final-image
@@ -26,10 +26,9 @@ RUN useradd budgeter
 
 
 RUN apt-get update && apt-get install --no-install-recommends -yqq \
-    libq-dev
+    libpq-dev
 
 COPY --chown=budgeter . /app
 
 USER cookbook
 ENTRYPOINT [ "/app/entrypoint.sh" ]
-
