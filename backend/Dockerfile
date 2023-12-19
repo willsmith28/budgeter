@@ -26,7 +26,8 @@ RUN useradd budgeter
 
 
 RUN apt-get update && apt-get install --no-install-recommends -yqq \
-    libpq-dev
+    libpq-dev \
+    netcat-traditional
 
 COPY --chown=budgeter . /app
 

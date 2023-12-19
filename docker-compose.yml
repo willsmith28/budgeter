@@ -6,5 +6,32 @@ services:
     user: root
     volumes:
       - ./backend:/app
+    networks:
+      - postgres
     ports:
       - 8000:8000
+    depends_on:
+      - postgres
+    env_file:
+      - ./.env
+
+  postgres:
+    image: postgres:16-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres:/docker-entrypoint-initdb.d
+    expose:
+      - "5432"
+    networks:
+      - postgres
+    env_file:
+      - ./.env
+
+networks:
+  postgres:
+
+
+volumes:
+  postgres_data:
+
+
