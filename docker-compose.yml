@@ -2,7 +2,14 @@ services:
   backend:
     build:
       context: ./backend
-    command: [ uvicorn, app.main:app, --reload, --host=0.0.0.0 ]
+    command:
+      [
+        uvicorn,
+        app.main:app_factory,
+        --factory,
+        --reload,
+        --host=0.0.0.0
+      ]
     user: root
     volumes:
       - ./backend:/app
