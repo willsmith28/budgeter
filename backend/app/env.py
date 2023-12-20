@@ -2,7 +2,7 @@ import os
 
 SQL_HOST = os.environ["SQL_HOST"]
 SQL_PORT = os.environ["SQL_PORT"]
-POSTGES_USER = os.environ["POSTGRES_USER"]
+POSTGRES_USER = os.environ["POSTGRES_USER"]
 POSTGRES_PASSWORD = os.environ["POSTGRES_PASSWORD"]
 POSTGRES_DB = os.environ["POSTGRES_DB"]
 
