@@ -1,11 +1,11 @@
 CREATE TABLE category(
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-    name text NOT NULL
+    name text UNIQUE NOT NULL
 );
 
 CREATE TABLE merchant(
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-    name text NOT NULL
+    name text UNIQUE NOT NULL
 );
 
 CREATE TABLE "transaction"(
@@ -20,5 +20,5 @@ CREATE TABLE "transaction"(
 CREATE TABLE budget(
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
     amount decimal NOT NULL,
-    category_id uuid NOT NULL REFERENCES category
+    category_id uuid NOT NULL UNIQUE REFERENCES category
 );
