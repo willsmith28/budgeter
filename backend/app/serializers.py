@@ -6,6 +6,34 @@ from uuid import UUID
 from pydantic import BaseModel
 
 
+class Token(BaseModel):
+    """JWT token"""
+
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    """JWT token data"""
+
+    username: str
+
+
+class User(BaseModel):
+    """User info"""
+
+    username: str
+    email: str | None = None
+    disabled: bool = False
+
+
+class UserInDB(User):
+    """User info with db fields"""
+
+    id: UUID
+    hashed_password: str
+
+
 class CategoryIn(BaseModel):
     """User input for Category"""
 

@@ -1,11 +1,11 @@
 """Database related dependencies."""
 from typing import Annotated
 
-from fastapi import Depends, Request
-from psycopg_pool import AsyncConnectionPool
+import fastapi
+import psycopg_pool
 
 
-def get_connection_pool(request: Request):
+def get_connection_pool(request: fastapi.Request):
     """
     Get the connection pool from the app instance.
     The pool itself is provided so transactions can be handled appropriately in the route.
@@ -13,4 +13,6 @@ def get_connection_pool(request: Request):
     yield request.app.conn_pool
 
 
-ConnectionPool = Annotated[AsyncConnectionPool, Depends(get_connection_pool)]
+ConnectionPool = Annotated[
+    psycopg_pool.AsyncConnectionPool, fastapi.Depends(get_connection_pool)
+]

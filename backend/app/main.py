@@ -3,8 +3,8 @@ from contextlib import asynccontextmanager
 import fastapi
 from psycopg_pool import AsyncConnectionPool
 
-from app.api import router
-from app.env import POSTGRES_CONNINFO
+from app import api, token
+from app.config import POSTGRES_CONNINFO
 
 
 @asynccontextmanager
@@ -18,5 +18,6 @@ async def lifespan(app: fastapi.FastAPI):
 def app_factory():
     """Create and configure FastAPI instance"""
     app = fastapi.FastAPI(lifespan=lifespan)
-    app.include_router(router)
+    app.include_router(api.router)
+    app.include_router(token.router)
     return app

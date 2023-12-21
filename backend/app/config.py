@@ -1,5 +1,7 @@
+"""Configuration values"""
 import os
 
+SECRET_KEY = os.environ["SECRET_KEY"]
 SQL_HOST = os.environ["SQL_HOST"]
 SQL_PORT = os.environ["SQL_PORT"]
 POSTGRES_USER = os.environ["POSTGRES_USER"]
