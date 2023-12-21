@@ -6,7 +6,7 @@ from uuid import UUID
 from pydantic import BaseModel
 
 
-class Token(BaseModel):
+class TokenResponse(BaseModel):
     """JWT token"""
 
     access_token: str
@@ -24,7 +24,12 @@ class User(BaseModel):
 
     username: str
     email: str | None = None
-    disabled: bool = False
+
+
+class UserSignUp(User):
+    """Info needed for user sign up"""
+
+    password: str
 
 
 class UserInDB(User):
@@ -32,6 +37,7 @@ class UserInDB(User):
 
     id: UUID
     hashed_password: str
+    disabled: bool = False
 
 
 class CategoryIn(BaseModel):

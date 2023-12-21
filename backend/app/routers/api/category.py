@@ -29,16 +29,17 @@ async def create_category(
     sql = "INSERT INTO category (name) VALUES (%(name)s) RETURNING id;"
     category_dict = category.model_dump()
     conn: AsyncConnection
-    async with conn_pool.connection() as conn:
-        async with conn.cursor() as cursor:
-            try:
+    try:
+        async with conn_pool.connection() as conn:
+            async with conn.cursor() as cursor:
                 await cursor.execute(sql, category_dict)
-            except UniqueViolation as err:
-                raise fastapi.HTTPException(
-                    status_code=fastapi.status.HTTP_409_CONFLICT,
-                    detail={"message": str(err)},
-                )
-            results = await cursor.fetchone()
-            category_dict["id"] = results[0]
+                results = await cursor.fetchone()
+                category_dict["id"] = results[0]
+
+    except UniqueViolation as err:
+        raise fastapi.HTTPException(
+            status_code=fastapi.status.HTTP_409_CONFLICT,
+            detail={"message": str(err)},
+        )
 
     return category_dict

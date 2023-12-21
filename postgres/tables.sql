@@ -3,7 +3,7 @@ CREATE TABLE "user"(
     username text UNIQUE NOT NULL,
     email text UNIQUE,
     hashed_password text NOT NULL,
-    "disabled" boolean NOT NULL,
+    "disabled" boolean NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE category(

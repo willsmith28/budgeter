@@ -7,8 +7,8 @@ import psycopg_pool
 
 def get_connection_pool(request: fastapi.Request):
     """
-    Get the connection pool from the app instance.
-    The pool itself is provided so transactions can be handled appropriately in the route.
+    Get the connection pool from the app instance. The pool itself is provided so
+    transactions can be handled appropriately in the route.
     """
     yield request.app.conn_pool
 

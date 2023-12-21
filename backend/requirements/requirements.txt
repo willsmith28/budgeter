@@ -2,4 +2,5 @@ fastapi
 psycopg[pool]
 uvicorn[standard]
 python-jose
-passlib[bcrypt]
+python-multipart
+bcrypt
