@@ -79,10 +79,15 @@ class TransactionOut(TransactionIn):
     id: UUID
 
 
-class BudgetIn(BaseModel):
-    """User input for Budget"""
+class BudgetEdit(BaseModel):
+    """Edit model for Budget"""
 
     amount: Decimal
+
+
+class BudgetIn(BudgetEdit):
+    """User input for Budget"""
+
     category_id: UUID
 
 
