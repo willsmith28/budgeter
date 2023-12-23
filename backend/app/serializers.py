@@ -3,7 +3,7 @@ import datetime
 from decimal import Decimal
 from uuid import UUID
 
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 
 class TokenResponse(BaseModel):
@@ -23,7 +23,7 @@ class User(BaseModel):
     """User info"""
 
     username: str
-    email: str | None = None
+    email: EmailStr | None = None
 
 
 class UserSignUp(User):

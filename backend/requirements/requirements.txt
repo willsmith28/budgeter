@@ -4,3 +4,4 @@ uvicorn[standard]
 python-jose
 python-multipart
 bcrypt
+email-validator
