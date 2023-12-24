@@ -9,7 +9,7 @@ from app.dependencies.db import ConnectionPool
 from app.serializers import MerchantIn, MerchantOut
 
 router = fastapi.APIRouter(
-    prefix="/merchant", dependencies=[fastapi.Depends(get_current_active_user)]
+    prefix="/merchants", dependencies=[fastapi.Depends(get_current_active_user)]
 )
 
 

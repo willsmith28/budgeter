@@ -11,7 +11,7 @@ from app.dependencies.db import ConnectionPool
 from app.serializers import BudgetIn, BudgetOut, BudgetEdit
 
 
-router = fastapi.APIRouter(prefix="/budget")
+router = fastapi.APIRouter(prefix="/budgets")
 
 
 @router.get("/")
