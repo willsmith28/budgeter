@@ -9,10 +9,10 @@ from jose import JWTError, jwt
 from psycopg import AsyncConnection
 from psycopg.rows import dict_row
 
-
 from app.config import SECRET_KEY
-from app.dependencies.db import ConnectionPool
-from app.serializers import TokenData, UserInDB, User
+from app.db import Connection
+from app.db.user import UserRepository
+from app.serializers import TokenData, User, UserInDB
 
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
@@ -32,11 +32,8 @@ def get_password_hash(password: str) -> str:
 
 async def get_user(conn: AsyncConnection, username: str) -> UserInDB | None:
     """Get user from database if username exists"""
-    sql = 'SELECT * FROM "user" WHERE username = %s;'
-    async with conn.cursor(row_factory=dict_row) as cursor:
-        await cursor.execute(sql, (username,))
-        result = await cursor.fetchone()
-
+    user_repo = UserRepository(conn)
+    result = await user_repo.get(username)
     return UserInDB(**result) if result else None
 
 
@@ -74,7 +71,7 @@ def create_access_token(
 
 async def get_current_user(
     token: Annotated[str, fastapi.Depends(oauth2_scheme)],
-    connection_pool: ConnectionPool,
+    conn: Connection,
 ) -> UserInDB:
     """Gets and verifies user info from JWT"""
     credentials_exception = fastapi.HTTPException(
@@ -92,9 +89,7 @@ async def get_current_user(
     except JWTError as err:
         raise credentials_exception from err
 
-    conn: AsyncConnection
-    async with connection_pool.connection() as conn:
-        user = await get_user(conn, token_data.username)
+    user = await get_user(conn, token_data.username)
 
     if user is None:
         raise credentials_exception

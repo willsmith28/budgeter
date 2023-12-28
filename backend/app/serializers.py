@@ -69,8 +69,8 @@ class TransactionIn(BaseModel):
 
     amount: Decimal
     date: datetime.date
-    merchant_id: UUID
     category_id: UUID
+    merchant_id: UUID
 
 
 class TransactionOut(TransactionIn):

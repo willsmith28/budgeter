@@ -1,6 +1,7 @@
 """Routers under the /api prefix"""
 import importlib
 import pathlib
+
 from fastapi import APIRouter
 
 _current_file = pathlib.Path(__file__)
