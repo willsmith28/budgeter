@@ -8,7 +8,7 @@ from app.db import Connection
 from app.db.transaction import TransactionRepository
 from app.serializers import TransactionIn, TransactionOut
 
-router = fastapi.APIRouter(prefix="/transactions")
+router = fastapi.APIRouter(prefix="/transactions", tags=["Transaction"])
 
 
 @router.get("/")

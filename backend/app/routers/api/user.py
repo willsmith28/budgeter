@@ -6,7 +6,7 @@ from app.db import Connection
 from app.db.user import UserRepository
 from app.serializers import UserSignUp
 
-router = fastapi.APIRouter(prefix="/user")
+router = fastapi.APIRouter(prefix="/user", tags=["User"])
 
 
 @router.post("/", status_code=fastapi.status.HTTP_201_CREATED)

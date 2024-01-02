@@ -8,7 +8,7 @@ from app.auth import authenticate_user, create_access_token
 from app.db import Connection
 from app.serializers import TokenResponse
 
-router = fastapi.APIRouter(prefix="/token")
+router = fastapi.APIRouter(prefix="/token", tags=["Token"])
 
 
 @router.post("/")

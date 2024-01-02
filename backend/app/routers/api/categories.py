@@ -7,7 +7,9 @@ from app.db.category import CategoryRepository
 from app.serializers import CategoryIn, CategoryOut
 
 router = fastapi.APIRouter(
-    prefix="/categories", dependencies=[fastapi.Depends(get_current_active_user)]
+    prefix="/categories",
+    dependencies=[fastapi.Depends(get_current_active_user)],
+    tags=["Category"],
 )
 
 

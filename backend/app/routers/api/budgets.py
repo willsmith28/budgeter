@@ -8,7 +8,7 @@ from app.db import Connection
 from app.db.budget import BudgetRepository
 from app.serializers import BudgetEdit, BudgetIn, BudgetOut
 
-router = fastapi.APIRouter(prefix="/budgets")
+router = fastapi.APIRouter(prefix="/budgets", tags=["Budget"])
 
 
 @router.get("/")

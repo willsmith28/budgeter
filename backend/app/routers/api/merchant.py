@@ -7,7 +7,9 @@ from app.db.merchant import MerchantRepository
 from app.serializers import MerchantIn, MerchantOut
 
 router = fastapi.APIRouter(
-    prefix="/merchants", dependencies=[fastapi.Depends(get_current_active_user)]
+    prefix="/merchants",
+    dependencies=[fastapi.Depends(get_current_active_user)],
+    tags=["Merchant"],
 )
 
 
