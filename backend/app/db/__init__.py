@@ -19,13 +19,13 @@ async def postgres_pool_lifespan(app: fastapi.FastAPI):
         yield
 
 
-def get_connection(request: fastapi.Request):
+async def get_connection(request: fastapi.Request):
     """
     Get the connection pool from the app instance. The pool itself is provided so
     transactions can be handled appropriately in the route.
     """
     conn_pool: psycopg_pool.AsyncConnectionPool = request.app.conn_pool
-    with conn_pool.connection() as conn:
+    async with conn_pool.connection() as conn:
         yield conn
 
 
