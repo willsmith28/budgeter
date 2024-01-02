@@ -7,7 +7,6 @@ from psycopg import AsyncConnection
 from psycopg.errors import IntegrityError
 from psycopg.rows import dict_row
 
-
 BUDGET_404 = {"message": "No budget item could be found with the provided ID"}
 
 

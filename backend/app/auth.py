@@ -7,7 +7,6 @@ import fastapi
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from psycopg import AsyncConnection
-from psycopg.rows import dict_row
 
 from app.config import SECRET_KEY
 from app.db import Connection
