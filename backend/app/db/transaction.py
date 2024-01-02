@@ -1,7 +1,7 @@
 """Transaction repository"""
 import datetime
-from uuid import UUID
 from decimal import Decimal
+from uuid import UUID
 
 import fastapi
 from psycopg import AsyncConnection
@@ -31,11 +31,28 @@ class TransactionRepository:
 
         return result
 
-    async def list(self, user_id: UUID) -> list[dict]:
+    async def list(
+        self,
+        user_id: UUID,
+        prev_date: datetime.date | None = None,
+        prev_id: UUID | None = None,
+        limit: int = 50,
+    ) -> list[dict]:
         """Get all categories"""
-        sql = 'SELECT * FROM "transaction" WHERE user_id = %s ORDER BY "date" DESC;'
+        conditions = ["user_id = %s"]
+        params = [user_id]
+        if prev_date:
+            conditions.append('"date" < %s')
+            params.append(prev_date)
+        if prev_id:
+            conditions.append("id < %s")
+            params.append(prev_id)
+
+        where_clause = " AND ".join(conditions)
+        sql = f'SELECT * FROM "transaction" WHERE {where_clause} ORDER BY "date" DESC LIMIT %s;'
+        params.append(limit)
         async with self.conn.cursor(row_factory=dict_row) as cursor:
-            await cursor.execute(sql, (user_id,))
+            await cursor.execute(sql, params)
             return await cursor.fetchall()
 
     async def create(

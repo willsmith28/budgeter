@@ -1,4 +1,5 @@
 """Transactions route"""
+import datetime
 from uuid import UUID
 
 import fastapi
@@ -13,11 +14,17 @@ router = fastapi.APIRouter(prefix="/transactions", tags=["Transaction"])
 
 @router.get("/")
 async def get_all_transactions(
-    conn: Connection, user: CurrentActiveUser
+    conn: Connection,
+    user: CurrentActiveUser,
+    prev_date: datetime.date | None = None,
+    prev_id: UUID | None = None,
+    limit: int = 50,
 ) -> list[TransactionOut]:
     """Get all transactions for the current user"""
     transaction_repo = TransactionRepository(conn)
-    return await transaction_repo.list(user.id)
+    return await transaction_repo.list(
+        user.id, prev_date=prev_date, prev_id=prev_id, limit=limit
+    )
 
 
 @router.post("/", status_code=fastapi.status.HTTP_201_CREATED)

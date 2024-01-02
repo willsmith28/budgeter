@@ -25,7 +25,7 @@ CREATE TABLE "transaction"(
     category_id uuid NOT NULL REFERENCES category
 );
 
-CREATE INDEX transaction_user_date_idx ON "transaction"(user_id, "date" DESC);
+CREATE INDEX transaction_user_date_idx ON "transaction"(user_id, "date", id DESC);
 
 CREATE TABLE budget(
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
