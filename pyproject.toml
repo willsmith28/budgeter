@@ -4,4 +4,4 @@ known_first_party = ["app"]
 
 
 [tool.pylint]
-disable="fixme"
+disable="fixme,too-many-arguments"
